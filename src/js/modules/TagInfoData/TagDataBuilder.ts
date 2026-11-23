@@ -182,21 +182,18 @@ export class TagDataBuilder {
 
     /**
      * Generic adding
-     * Although this is a problem.
      * @param entries 
-     * @deprecated
      */
-    public AddGenericTagEntries(entries: TagDataClasses.BaseDocsEntry<ITagBaseDocsInfo>[]) {
+    public AddGenericTagEntries(entries: BaseTagNameableEntry<ITagBaseNameableEntry>[]) {
         for (let entry of entries) {
-            //entry.InsertTo(this)
 
-            //this.AddEntryGeneric(entry)
-            if (entry instanceof TagTokenEntry)
+            this.AddTagEntryGeneric(entry)
+            /*if (entry instanceof TagTokenEntry)
                 this.AddTagToken(entry)
             else if (entry instanceof TagGroupEntry)
                 this.AddTagGroup(entry)
             else if (entry instanceof TagLabel)
-                this.AddTagLabel(entry)
+                this.AddTagLabel(entry)*/
         }
 
         return this;

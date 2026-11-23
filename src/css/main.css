@@ -605,6 +605,10 @@ dialog.noBg-dialog {
 
 /* Base stuff */
 
+a {
+    color: var(--link-color);
+}
+
 code {
     background-color: var(--code-bg);
     padding: 2px 4px;

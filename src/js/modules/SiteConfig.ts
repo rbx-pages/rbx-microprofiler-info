@@ -2,6 +2,8 @@
 const SiteConfig = {
     repo_URL: "https://github.com/rbx-pages/rbx-microprofiler-info",
 
+    GitHub_Pages_URL: "https://rbx-pages.github.io/rbx-microprofiler-info",
+
     fetchTagDataJSON_URL: "https://raw.githubusercontent.com/rbx-pages/rbx-microprofiler-info-json/refs/heads/output-json/output.json",
     fetchTagDataMetadataJSON_URL:
         "https://raw.githubusercontent.com/rbx-pages/rbx-microprofiler-info-json/refs/heads/output-json/output_metadata.json",

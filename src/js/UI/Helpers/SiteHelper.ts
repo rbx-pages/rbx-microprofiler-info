@@ -1,3 +1,4 @@
+import SiteConfig from "../../modules/SiteConfig";
 import Loader_TagData from "../../modules/Storage_TagData";
 import { ITagDataRoot_JSON } from "../../modules/TagInfoData/TagDataClasses";
 import { GetEntryFromTagDataRoot_JSON } from "../../modules/TagInfoData/TagDataUtils";
@@ -24,6 +25,12 @@ export function MakeLinkURLToTagEntry(entryType: string, nameUID: string) {
     let origin = window.location.origin
     
     let newUrl = new URL(origin)
+
+    // Uh... cheat
+    if (origin.match("rbx-pages.github.io")) {
+        newUrl = new URL(SiteConfig.GitHub_Pages_URL)
+    }
+
     newUrl.searchParams.set("NameUID", nameUID)
     newUrl.searchParams.set("entryType", entryType)
 

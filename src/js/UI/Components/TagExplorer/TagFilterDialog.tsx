@@ -277,7 +277,7 @@ export default function TagFilterDialog(props: Props) {
                         settingsKey="b_onlyWithLabels"
                         onCheckboxChange={updateFilters}
                     />
-                    <label>Needs Labels</label>
+                    <label>Has Labels</label>
                 </div>
 
 

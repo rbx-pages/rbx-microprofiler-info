@@ -132,7 +132,11 @@ function App() {
     </div>
   )
 
+  // Is the filter changed in some important way?
   let b_showFilterChanged = useMemo(function() {
+    if (searchFilters.b_onlyWithLabels || searchFilters.b_searchDesc)
+      return true
+
     if (searchFilters.arr_onlyTagGroups && 
       searchFilters.arr_onlyTagGroups?.length > 0) {
       return true
@@ -166,7 +170,7 @@ function App() {
         uri_nameUID ?? "",
     )
 
-    console.log(uri_nameUID, startingTagDataRef)
+    //console.log(uri_nameUID, startingTagDataRef)
 
     setSelectedEntry({
         entryType: uri_entryType ?? "",

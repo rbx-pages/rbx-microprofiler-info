@@ -36,6 +36,7 @@ export const STR_TagGroups = {
     OverflowGroup: "(OverflowGroup)",
     PerformanceControl: "PerformanceControl",
     Physics: "Physics",
+    Qt: "Qt",
     RakNet: "RakNet",
     Rbf: "Rbf",
     RbxTransport: "RbxTransport",
