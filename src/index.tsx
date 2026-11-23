@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 
 import App from "./App.tsx";
 import MainLayout from "./js/UI/Layouts/MainLayout.tsx";
@@ -19,14 +19,18 @@ ReactDOM.createRoot( document.getElementById("root")! ).render(
   <SettingsProvider>
 
     {/* Content */}
-    <BrowserRouter basename={_BASENAME}>
+    {/*
+      BaseRouter over HashRouter, because of static pages issue
+      that's for not using NextJS
+    */}
+    <HashRouter /*basename={_BASENAME}*/>
       <Routes>
         <Route element={<MainLayout/>}>
           < Route path="/*" element={<App/>} />
           < Route path="/about" element={<AboutPage/>} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
 
   </SettingsProvider>
 
