@@ -1,0 +1,32 @@
+/*
+    Tailwind CSS would have probably been better.
+*/
+
+
+/* Class Helpers */
+
+.inheritSize {
+    width: inherit;
+    height: inherit;
+}
+
+
+.flex {
+    display: flex;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.aspect-ratio-1 {
+    aspect-ratio: 1;
+}
+
+.linecap-square {
+    stroke-linecap: square;
+}
+
+.display-contents {
+    display: contents;   
+}

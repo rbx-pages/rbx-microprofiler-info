@@ -1,0 +1,1 @@
+export type KeysOfObject<T> = (keyof T)[]

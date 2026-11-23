@@ -1,6 +1,7 @@
+@import url("./../palette.css");
 
 .split-pane-divider {
-    background: rgb(50,50,50);
+    background: var(--split-pane-divider-color);
     position: relative;
 }
 

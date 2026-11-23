@@ -1,0 +1,15 @@
+/*
+  Default Values mostly are around the places
+  In TypeScript "utilities.ts" and or "commandLineParser.ts"
+*/
+
+{
+  "compilerOptions": {
+    "types": ["node"],
+
+    "jsx": "react-jsx", /** default value */
+
+    "rewriteRelativeImportExtensions": true,
+    "allowImportingTsExtensions": true
+  }
+}

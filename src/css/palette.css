@@ -1,6 +1,41 @@
 :root {
-    --microprofiler-bg: #474747;
-    --darker-bg: #323232;
+    --main-bg: #474747;
+    --darker-bg: #3d3d3d;
+    --dialog-bg:  #676767;
+
 
     --text-color: white;
+    --text-color-dim: rgb(150,150,150);
+
+    --code-bg: #363636;
+    --table-border-color: rgb(27,27,27);
+    --table-bg: #404040;
+    --table-second-bg: #373737;
+
+    --split-pane-divider-color: #323232;
+    
+    --inputField-bg: #363636;
+    --inputField-text-color: var(--text-color);
+
+    --btn-bg-color: grey;
+    --btn-bg-color-dark: rgb(85, 85, 85);
+
+    --modalBtn-bg-color: var(--btn-bg-color-dark);
+    --modalBtn-border-color: #414141;
+
+    --icon-color: white;
+
+    --cornerBox-radius-smooth-A: 2px;
+
+    /* Default color but can be overwritten in many ways */
+    --tagEntry-input-color: rgb(128, 83, 0);
+
+    --tagView-introSection-border-color: #858585;
 }
+
+
+/*html[data-theme="light"] {
+    :root {
+        --main-bg: #d3d3d3;
+    }
+}*/

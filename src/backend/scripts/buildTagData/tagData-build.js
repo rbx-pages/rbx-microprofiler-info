@@ -7,7 +7,7 @@ import ESBuild from "esbuild"
 
 ESBuild.build({
     entryPoints: [
-        "./src/js/modules/TagInfoData/TagDataBuilder.ts",
+        "./src/js/modules/TagInfoData/exportStuff.ts",
     ],
     bundle: true,
     outdir: "./src/backend/scripts/buildTagData/output/",
