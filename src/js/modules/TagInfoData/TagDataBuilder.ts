@@ -66,7 +66,7 @@ export class TagDataBuilder {
     static _labelPrefix = "label_"
 
     static makeLabelName(name: string) {
-        return this._labelPrefix + name
+        return TagDataBuilder._labelPrefix + name
     }
 
 
