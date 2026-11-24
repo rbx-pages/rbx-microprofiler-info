@@ -19,6 +19,24 @@ export function makeCSS_WidthHeight(value: string) {
     }
 }
 
+/**
+ * Get whether the text should be black or white.
+ * This is in MicroProfiler Style from Invert Color
+ */
+export function getContrastingTextColorFromBg_RGB(rgbArr: [number, number, number]) {
+    var R = rgbArr[0] / 255.0
+    var G = rgbArr[1] / 255.0
+    var B = rgbArr[2] / 255.0
+
+    var lum = (0.2126 * R + 0.7152 * G + 0.0722 * B);
+    if (lum < 0.7) {
+        return "white";
+    }
+    else {
+        return "black";
+    }
+}
+
 
 
 export default {

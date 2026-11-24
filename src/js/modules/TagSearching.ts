@@ -76,7 +76,7 @@ function BuildFilterPredicateBaseEntry(
     let searchQuery = filters.query ?? ""
     searchQuery = searchQuery.toLowerCase()
 
-    // TODO: Support Group::token_name search?
+    // Support Group::token_name search?
 
     predicates.push(function([k, v]) {
         // NameUID

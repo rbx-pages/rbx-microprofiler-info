@@ -31,22 +31,39 @@ export function GetDisplayNameFromTagEntry(entryData: ITagBaseNameableEntry) {
         return entryData.NameUID
 }
 
+
+/**
+ * Returns the color for the tag entry
+ * Gets it in this order
+ * - Original Data
+ * - Alias entry
+ * - Group Data
+ */
 export function GetColorForTagEntry(
     entryData: ITagBaseNameableEntry,
     entryType?: keyof ITagDataRoot_JSON,
     rootData?: ITagDataRoot_JSON
-): Color3Array|undefined {
+): (Color3Array | undefined)
+{
     let colorToReturn = undefined
 
     if (entryData.Color)
         colorToReturn = entryData.Color
 
-    if (entryType != undefined) {
+    if (entryType != undefined && colorToReturn == undefined) {
         switch(entryType) {
             case "TagTokens": {
                 let tagToken = entryData as ITagTokenEntry
 
                 if (colorToReturn == undefined) {
+                    if (tagToken.AliasOfNameUID) {
+                        let aliasEntry = GetEntryFromTagDataRoot_JSON(
+                            rootData!, "TagTokens", tagToken.AliasOfNameUID
+                        )
+                        if (aliasEntry)
+                            colorToReturn = GetColorForTagEntry(aliasEntry, "TagTokens")
+                    }
+
                     if (tagToken.GroupUID) {
                         let groupEntry = GetEntryFromTagDataRoot_JSON(
                             rootData!,
@@ -55,13 +72,14 @@ export function GetColorForTagEntry(
                         )
 
                         if (groupEntry)
-                            colorToReturn = GetColorForTagEntry(groupEntry)
+                            colorToReturn = GetColorForTagEntry(groupEntry, "TagGroups")
                     }
                 }
 
                 break;
             }
-            default: break;
+            default:
+                break;
         }
     }
 

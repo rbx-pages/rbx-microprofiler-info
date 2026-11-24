@@ -1,8 +1,9 @@
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { ITagDataRoot_JSON } from "../../../modules/TagInfoData/TagDataClasses"
 import ExpandCollapsable from "../Base/ExpandCollapsable/ExpandCollapsable"
 import { TagEntrySelectionData, TagListEntry } from "./TagListEntry"
 import { ITagSelectionRequestData } from "../../Contexts/TagExplorerContext"
+import ButtonStyled from "../ButtonStyled"
 
 type TagListProps = React.HTMLAttributes<HTMLElement> & {
     query?: string
@@ -24,30 +25,84 @@ type TagListProps = React.HTMLAttributes<HTMLElement> & {
 
 
 type TagListSectionEntriesProps = {
-    items: []
+    items: React.ReactNode[]
 
     /**
      * How many results to display at once.
+     * If not provided it will show all.
      */
     pageSize?: number
 }
 
-
 /**
  * Entries as section, within for either Tokens, Groups or Labels
+ * 
  * Should display also its own message if no results were found?
  */
-function TagListSectionEntries(props: TagListSectionEntriesProps) {
+const TagListSectionEntries = function(props: TagListSectionEntriesProps) {
+    let totalItems = props.items.length
+    
+    // If no pageSize then we aim to show all.
+    const [bShowAll, setShowAll] = useState(!props.pageSize)
 
+    // How many items should be made visible
+    const [visibleCount, setVisibleCount] = useState(props.pageSize ?? totalItems)
 
-    return null
+    useEffect(() => {
+        if (bShowAll) {
+            setVisibleCount(totalItems)
+        }
+    }, [bShowAll]) // this technically makes one extra re-render
+    useEffect(() => {
+        setShowAll(!props.pageSize)
+        if (props.pageSize)
+            setVisibleCount(props.pageSize)    
+    }, [props.items, props.pageSize])
+
+    // Cut away from what to show
+    let visibleItems = bShowAll ? props.items : props.items.slice(0, visibleCount)
+
+    // If visibleCount is less than the total
+    //const b_hasMoreItems = visibleCount < totalItems
+
+    let remainingCount = totalItems - visibleCount
+    //console.log(remainingCount, visibleItems.length)
+
+    return (
+        <div className="flex-column">
+            {visibleItems}
+
+            {
+                // If there are more items display two buttons
+                // Show More and Show All
+                (remainingCount > 0) &&
+                <div>
+                    <ButtonStyled
+                        onClick={function() {
+                          setVisibleCount(current => current + (props.pageSize ?? 50))  
+                        }}
+                    >
+                        <span>Show More</span>
+                    </ButtonStyled>
+                    <ButtonStyled
+                        onClick={function() {
+                            setShowAll(true)
+                        }}
+                    >
+                        <span>Show All</span>
+                    </ButtonStyled>
+                </div>
+            }
+        </div>
+    )
 }
 
 
 /**
  * To display a list of tags.
  * 
- * TODO: Virtualization or some kind of Show All or More button.
+ * The sub-component has simple virtualization
+ * with "Show More" and "Show All" buttons.
  */
 function TagList(props: TagListProps) {
     let isSearching = false
@@ -110,7 +165,7 @@ function TagList(props: TagListProps) {
         }
 
         return results
-    }, [props.resultsTagData])
+    }, [props.resultsTagData, props.onListEntrySelected])
     // Is this good?
 
 
@@ -139,7 +194,7 @@ function TagList(props: TagListProps) {
         <div className="display-contents">
             {listResults.map(listResult => {
                 return <ExpandCollapsable 
-                    key={listResult.type}
+                    key={listResult.type} // key
                     startExpanded={listResult.startExpanded}
                     //extraClassName="flex-pre-scroll-container"
                 >
@@ -149,7 +204,10 @@ function TagList(props: TagListProps) {
                     <ExpandCollapsable.Content>
                         {/* Scrollable Flex */}
                         <div className="scrollable-Y flex-scroll">
-                            {listResult.items}
+                            <TagListSectionEntries
+                                items={listResult.items}
+                                pageSize={350}
+                            />
                         </div>
                     </ExpandCollapsable.Content>
                 </ExpandCollapsable>

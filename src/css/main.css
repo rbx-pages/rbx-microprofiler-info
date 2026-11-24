@@ -289,6 +289,10 @@ a.noStyle {
     border-color: white;   
 }
 
+.tagListEntryBtn.text-black {
+    color: #333333; /* matches MicroProfiler */
+}
+
 
 .filterCheckboxArray {
     max-width: 450px;

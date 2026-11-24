@@ -1,7 +1,10 @@
+import { useMemo } from "react"
 import { ITagDataRoot_JSON } from "../../../modules/TagInfoData/TagDataClasses"
-import { GetDisplayNameFromTagEntry } from "../../../modules/TagInfoData/TagDataUtils"
+import { GetColorForTagEntry, GetDisplayNameFromTagEntry } from "../../../modules/TagInfoData/TagDataUtils"
 import { ITagBaseNameableEntry } from "../../../modules/TagInfoData/types/TagInfo"
+import { getContrastingTextColorFromBg_RGB } from "../../../modules/Utils/Utilities"
 import { ITagSelectionRequestData } from "../../Contexts/TagExplorerContext"
+import Loader_TagData from "../../../modules/Storage_TagData"
 
 type Props = {
     /**
@@ -40,15 +43,39 @@ export type TagEntrySelectionData = {
  * Meant to show up in the Tag Listings
  */
 export const TagListEntry = function(props: Props) {
-
+    
     // Literally
     //let tagName = props.tagDataRef.NameUID
     let nameToDisplay = GetDisplayNameFromTagEntry(props.tagDataRef)
 
+    let colorToDisplay = props.tagDataRef.Color
+    /*let colorToDisplay = GetColorForTagEntry(
+        props.tagDataRef,
+        props.entryType as keyof ITagDataRoot_JSON,
+        Loader_TagData.data!
+    )*/
+
+    // Figure out if we are too bright or too dark
+    // and whether we need to make the text black or white
+    let contrastingColorVariant = useMemo(function() {
+        let probe = "white"
+
+        if (colorToDisplay) {
+            probe = getContrastingTextColorFromBg_RGB(colorToDisplay)
+        }
+
+        if (probe == "black") {
+            return "text-black" // return the class name
+        }
+
+        return undefined
+    }, [colorToDisplay])
+
     return <button
         className={[
             "tagListEntryBtn",
-            props.isActive && "active"
+            props.isActive && "active",
+            contrastingColorVariant
         ]
             .filter(Boolean)
             .join(" ")}
@@ -61,8 +88,8 @@ export const TagListEntry = function(props: Props) {
 
         // Apply style overrides here!
         style={{
-            ...(props.tagDataRef.Color != null && {
-                ["--tagEntry-input-color" as any]: `rgb(${props.tagDataRef.Color})`
+            ...(colorToDisplay != undefined && {
+                ["--tagEntry-input-color" as any]: `rgb(${colorToDisplay})`
             })
         }}
     >
