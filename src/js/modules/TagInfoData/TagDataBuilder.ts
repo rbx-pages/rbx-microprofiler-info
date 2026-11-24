@@ -5,56 +5,6 @@ import { TagDataUtils } from "./TagDataUtils";
 import { ITagBaseDocsInfo, ITagBaseNameableEntry } from "./types/TagInfo";
 
 
-/**
- * It would be possible to create a function that passes in the "this", with callback processor.
- */
-/*
-function ForReturnThis<T>(obj_this: T) {
-    return function <Args extends any[]>(
-        callbackFunc: (obj_this: T, ...args: Args) => void
-    ) {
-        return function (...args: Args) {
-            callbackFunc(obj_this, ...args)
-            return obj_this
-        }
-    }
-}
-*/
-
-/*
-class TestClass {
-  public TestProp1 = "Value1"
-  public TestProp2: string | undefined;
-  
-  constructor(data?: Partial<TestClass>) {
-    let this_obj = this as Record<string, unknown>
-
-    // Not sure if it should be done like this
-    // It could mess with casting by removing fields
-    if (data) {
-      (Object.keys(this_obj) as Array<keyof TestClass>).forEach(function(key) {
-        console.log(key)
-        this_obj[key] = data[key];
-      }, this_obj)
-    }
-  }
-  
-  public HelloFunc() {
-    return "Hello"
-  }
-}
-
-let newClass = new TestClass({
-  TestProp1: "Override1",
-  TestProp2: "Override2",
-  notValidProp: "test"
-})
-
-console.log(newClass)
-*/
-
-
-
 
 /**
  * This is used to build the Tag Data
@@ -208,6 +158,8 @@ export class TagDataBuilder {
      * After the entire data is setup
      * this here could process data and expand data.
      * Post-processing
+     * 
+     * Can be tested with _MOCK_TEST in "App"
      */
     public Finalize() {
         // Make labels start with "label_"
@@ -227,8 +179,14 @@ export class TagDataBuilder {
         TagDataUtils.ForEach_TagNameableEntryInRoot(this.rootData, function(entryType, tagEntry) {
             let docsInfo = tagEntry.Data.DocsInfo ?? undefined
             if (docsInfo !== undefined && docsInfo.Description != undefined) {
-                let newDescription = docsInfo.Description.trim()
-                newDescription = marked.parse(newDescription, {breaks: true, async: false})
+                let newDescription = docsInfo.Description
+                newDescription = newDescription.trim()
+
+                // Parse Markdown
+                //
+                // breaks is disabled, so one single line break, doens't count as a line break
+                // So we can have code that doesn't take much width in the editor
+                newDescription = marked.parse(newDescription, {breaks: false, async: false})
 
                 tagEntry.SetDescription(newDescription)
             }

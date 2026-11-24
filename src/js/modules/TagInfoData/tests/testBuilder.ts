@@ -62,7 +62,11 @@ function build() {
         new TagTokenEntry(`specialToken`)
 .SetDescription(`
 Hello World!
+
 Example description.
+
+More text...
+should not line break here...
 
 ### Advice
 Example text.
