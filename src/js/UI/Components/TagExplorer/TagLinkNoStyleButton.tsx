@@ -4,6 +4,7 @@ import { ITagDataRoot_JSON } from "../../../modules/TagInfoData/TagDataClasses";
 
 type Props = {
     children: React.ReactNode;
+    title?: string;
 
     nameUID: string,
     entryType: keyof ITagDataRoot_JSON
@@ -14,6 +15,8 @@ function TagLinkNoStyleButton(props: Props) {
 
     return <button
         className="noStyleBtn"
+        title={props.title}
+
         onClick={() => {
             onListEntrySelected({
                 entryType: props.entryType,

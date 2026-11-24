@@ -112,7 +112,7 @@ function Filter_CheckboxList(props: Props_Filter_CheckboxList) {
         )
     })
 
-    return <div>
+    return <div className="filterCheckboxArray">
         {output}
     </div>
 }
@@ -133,31 +133,6 @@ type Props_Filter_TagGroups = {
 function Filter_TagGroups(props: Props_Filter_TagGroups) {
     if (Loader_TagData.data == undefined)
         return null;
-
-    /*let arr_onlyTagGroups = props.arr_onlyTagGroups
-
-    function updateSingle(groupUID: string, checked: boolean) {
-        if (arr_onlyTagGroups == undefined)
-            arr_onlyTagGroups = []
-
-        // Should this even stay an array?
-
-        if (checked) {
-            // If not already inside
-            if (!arr_onlyTagGroups.includes(groupUID)) {
-                arr_onlyTagGroups.push(groupUID)
-            }
-        } else {
-            if (arr_onlyTagGroups.includes(groupUID)) {
-                let foundIndex = arr_onlyTagGroups.findIndex(function(indexToMatch) {
-                    return indexToMatch === groupUID
-                })
-                arr_onlyTagGroups.splice(foundIndex, 1)
-            }
-        }
-
-        props.onChange("arr_onlyTagGroups", arr_onlyTagGroups)
-    }*/
 
     const items = Object.entries(Loader_TagData.data.TagGroups).map(([k, v]) => ({
         key: k,

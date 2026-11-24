@@ -194,6 +194,7 @@ export function TagView(props: Props_TagView) {
 
     
     // Should be a reference to loaded Tag Data
+    let initialTagDataRef = props.tagDataRef
     let tagDataRef = props.tagDataRef
 
     let selectedNameUID = tagDataRef.NameUID
@@ -394,6 +395,18 @@ export function TagView(props: Props_TagView) {
                         <code title="Actual NameUID">
                             {selectedNameUID}
                         </code>
+                    </>
+                }
+                {
+                    // Show alias info
+                    initialTagDataRef.AliasOfNameUID &&
+                    <>
+                    <div className="vertDivLine"/>
+                    <span>alias of <TagLinkNoStyleButton
+                            entryType={props.entryType as keyof ITagDataRoot_JSON}
+                            nameUID={initialTagDataRef.AliasOfNameUID}
+                        ><code>{initialTagDataRef.AliasOfNameUID}</code></TagLinkNoStyleButton>    
+                    </span>
                     </>
                 }
             </div>
