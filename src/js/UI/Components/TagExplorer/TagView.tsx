@@ -219,7 +219,7 @@ export function TagView(props: Props_TagView) {
             tagDataRef.AliasOfNameUID
         )!
         if (tagDataRef === undefined)
-            throw new Error("Probably an error with the JSON.")
+            throw new Error(`This alias is not valid "${props.tagDataRef.AliasOfNameUID}" in the JSON.`)
     }
 
     // Get the color, if available

@@ -61,7 +61,7 @@ export function GetColorForTagEntry(
                             rootData!, "TagTokens", tagToken.AliasOfNameUID
                         )
                         if (aliasEntry)
-                            colorToReturn = GetColorForTagEntry(aliasEntry, "TagTokens")
+                            colorToReturn = GetColorForTagEntry(aliasEntry, "TagTokens", rootData)
                     }
 
                     if (tagToken.GroupUID) {
@@ -72,7 +72,7 @@ export function GetColorForTagEntry(
                         )
 
                         if (groupEntry)
-                            colorToReturn = GetColorForTagEntry(groupEntry, "TagGroups")
+                            colorToReturn = GetColorForTagEntry(groupEntry, "TagGroups", rootData)
                     }
                 }
 
